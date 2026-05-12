@@ -679,6 +679,17 @@ function shuffle(items) {
   return [...items].sort(() => Math.random() - 0.5);
 }
 
+function orderedQuestions(items) {
+  const typeRank = { fill: 0, short: 1 };
+  return [...items].sort((a, b) => {
+    const chapterDiff = chapters.indexOf(a.chapter) - chapters.indexOf(b.chapter);
+    if (chapterDiff) return chapterDiff;
+    const typeDiff = (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9);
+    if (typeDiff) return typeDiff;
+    return a.id.localeCompare(b.id);
+  });
+}
+
 function setView(viewId) {
   document.querySelectorAll(".view").forEach(v => v.classList.toggle("active", v.id === viewId));
   document.querySelectorAll(".nav-item").forEach(b => b.classList.toggle("active", b.dataset.view === viewId));
@@ -836,7 +847,7 @@ function startPractice() {
   const ch = byId("chapterSelect").value;
   const type = byId("typeSelect").value;
   const qs = questionBank.filter(q => (ch === "all" || q.chapter === ch) && (type === "all" || q.type === type));
-  renderQuiz("practiceArea", qs, ch === "all" ? "全部章节检测" : ch);
+  renderQuiz("practiceArea", orderedQuestions(qs), ch === "all" ? "全部章节检测" : ch);
 }
 
 function startExam() {
@@ -912,4 +923,4 @@ initSelectors();
 bindEvents();
 renderDashboard();
 renderCards();
-renderQuiz("practiceArea", questionBank.filter(q => q.chapter === "操作系统基础"), "操作系统基础");
+renderQuiz("practiceArea", orderedQuestions(questionBank.filter(q => q.chapter === "操作系统基础")), "操作系统基础");
