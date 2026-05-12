@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>操作系统复习检测平台</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">OS</div>
+      <div>
+        <h1>操作系统检测平台</h1>
+        <p>基于 OS_wh 复习重点</p>
+      </div>
+    </div>
+
+    <nav class="nav" aria-label="主导航">
+      <button class="nav-item active" data-view="dashboard">总览</button>
+      <button class="nav-item" data-view="practice">章节检测</button>
+      <button class="nav-item" data-view="exam">随机组卷</button>
+      <button class="nav-item" data-view="calc">计算专项</button>
+      <button class="nav-item" data-view="cards">背诵卡片</button>
+      <button class="nav-item" data-view="mistakes">错题本</button>
+    </nav>
+
+    <div class="side-panel">
+      <div class="panel-label">复习范围</div>
+      <ol>
+        <li>操作系统基础</li>
+        <li>进程管理</li>
+        <li>内存管理</li>
+        <li>设备管理</li>
+        <li>文件系统</li>
+      </ol>
+    </div>
+  </aside>
+
+  <main class="app">
+    <header class="topbar">
+      <div>
+        <div class="eyebrow">期末复习 · 自测 · 错题回炉</div>
+        <h2 id="viewTitle">总览</h2>
+      </div>
+      <div class="top-actions">
+        <button id="resetProgress" class="ghost-btn">清空记录</button>
+      </div>
+    </header>
+
+    <section id="dashboard" class="view active">
+      <div class="stats-grid">
+        <article class="stat-card">
+          <span>已答题数</span>
+          <strong id="statAnswered">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>正确率</span>
+          <strong id="statAccuracy">0%</strong>
+        </article>
+        <article class="stat-card">
+          <span>错题数</span>
+          <strong id="statMistakes">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>题库总量</span>
+          <strong id="statTotal">0</strong>
+        </article>
+      </div>
+
+      <div class="section-row">
+        <section class="work-surface">
+          <div class="section-head">
+            <h3>章节掌握度</h3>
+          </div>
+          <div id="chapterProgress" class="chapter-progress"></div>
+        </section>
+
+        <section class="work-surface compact">
+          <div class="section-head">
+            <h3>建议顺序</h3>
+          </div>
+          <div class="priority-list">
+            <div><b>S</b><span>PV、调度、银行家、页式地址、页面置换、文件索引</span></div>
+            <div><b>A</b><span>OS特征、进程线程、可变分区、设备控制、SPOOLing</span></div>
+            <div><b>B</b><span>系统个案、第6章、第7章只保留名词印象</span></div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <section id="practice" class="view">
+      <div class="toolbar">
+        <label>
+          章节
+          <select id="chapterSelect"></select>
+        </label>
+        <label>
+          题型
+          <select id="typeSelect">
+            <option value="all">全部</option>
+            <option value="fill">填空题</option>
+            <option value="short">简答题</option>
+          </select>
+        </label>
+        <button id="startPractice" class="primary-btn">开始检测</button>
+      </div>
+      <div id="practiceArea" class="quiz-shell"></div>
+    </section>
+
+    <section id="exam" class="view">
+      <div class="toolbar">
+        <label>
+          题量
+          <select id="examCount">
+            <option value="10">10题</option>
+            <option value="15" selected>15题</option>
+            <option value="25">25题</option>
+          </select>
+        </label>
+        <label>
+          难度
+          <select id="examLevel">
+            <option value="all">全部</option>
+            <option value="core">核心考点</option>
+            <option value="calc">计算偏多</option>
+          </select>
+        </label>
+        <button id="startExam" class="primary-btn">生成试卷</button>
+      </div>
+      <div id="examArea" class="quiz-shell"></div>
+    </section>
+
+    <section id="calc" class="view">
+      <div class="toolbar">
+        <label>
+          专项
+          <select id="calcSelect">
+            <option value="调度算法">调度算法</option>
+            <option value="银行家算法">银行家算法</option>
+            <option value="页式地址转换">页式地址转换</option>
+            <option value="页面置换">页面置换</option>
+            <option value="文件索引">文件索引</option>
+          </select>
+        </label>
+        <button id="startCalc" class="primary-btn">专项训练</button>
+      </div>
+      <div id="calcArea" class="quiz-shell"></div>
+    </section>
+
+    <section id="cards" class="view">
+      <div class="toolbar">
+        <label>
+          卡片章节
+          <select id="cardChapter"></select>
+        </label>
+        <button id="shuffleCards" class="primary-btn">换一组</button>
+      </div>
+      <div id="cardGrid" class="card-grid"></div>
+    </section>
+
+    <section id="mistakes" class="view">
+      <div class="toolbar">
+        <button id="reviewMistakes" class="primary-btn">重练错题</button>
+        <button id="clearMistakes" class="ghost-btn">清空错题</button>
+      </div>
+      <div id="mistakeList" class="mistake-list"></div>
+      <div id="mistakeArea" class="quiz-shell"></div>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
